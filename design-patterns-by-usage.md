@@ -1658,6 +1658,7 @@ requires know about all the creation details;
 
 - builder and its classes have strong coupling
 
+
 ## Builder vs Factory Method
 
 - Factory method routes which implementation will be called (polymorphism);
@@ -2615,6 +2616,64 @@ public class Values<T> {
 }
 
 // if you want to mutate the content state, shallow is not safe for collections!
+```
+
+## Builder vs copy constructor
+
+Copy constructor
+
+```java
+public class Employee {
+    private int id;
+    private String name;
+    private Date startDate;
+
+    public Employee(Employee employee) {
+        this.id = employee.id;
+        this.name = employee.name;
+        this.startDate = new Date(employee.startDate.getTime());
+    }
+}
+```
+
+Cloned one
+```java
+public class Employee {
+
+    private int id;
+    private String name;
+    private Date startDate;
+
+    public clone() {
+      Employee cloned = new Employee();
+      cloned.id = this.id;
+      cloned.name = this.name;
+      cloned.startDate = this.startDate;
+      return cloned;
+    }
+}
+```
+
+In Java, we can also use the clone method to create an object from an existing object. However, the copy constructor has some advantages over the clone method:
+
+- We can not assign a value to a final field in the clone method. However, we can do so in the copy constructor;
+
+- Copy constructor is simple to code;
+
+- You cannot copy on constructor if you dont know the type;
+
+```java
+
+// cloning
+ExporterInterface someExporter = getFromLimbo();
+itemsToExport.stream().map(item -> someExporter.clone()).collect(Collectors.asList());
+// non thread safe can become a thread-safe one
+
+// copy on constructor?
+ExporterInterface someExporter = getFromLimbo();
+itemsToExport.stream().map(item -> new <?>(someExporter) ).collect(Collectors.asList());
+// cannot be done
+
 ```
 
 ### Cons
