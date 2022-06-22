@@ -38,6 +38,8 @@ A pattern to help with progressive rollouts with no downtime:
 
 ## References
 
+[patterns para js](https://www.patterns.dev/)
+
 [refactoring.guru](https://refactoring.guru/)
 
 [Source Making](https://sourcemaking.com/design_patterns/)
